@@ -91,18 +91,4 @@ public class OrderPage {
         return driver.findElement(By.className("Order_ModalHeader__3FDaJ"));
     }
 
-
-//    public void submitForm(String name,
-//                         String fullName,
-//                         String address,
-//                         String metro,
-//                         String phoneNumber) {
-//        name().sendKeys(name);
-//        fullName().sendKeys(fullName);
-//        address().sendKeys(address);
-//        metro().sendKeys(metro);
-//        phoneNumber().sendKeys(phoneNumber);
-//        buttonNext().click();
-//
-//    }
 }
