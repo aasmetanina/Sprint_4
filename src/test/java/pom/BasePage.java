@@ -1,4 +1,4 @@
-package utils;
+package pom;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -6,11 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class WebUtils {
-    private final WebDriver driver;
+public class BasePage {
+    protected final WebDriver driver;
 
 
-    public WebUtils(WebDriver driver) {
+    public BasePage(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -19,8 +19,8 @@ public class WebUtils {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
     }
 
+    //ожидание кликабельности элемента
     public void waitUntilClickable(WebElement element) {
         new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(element));
     }
-
 }

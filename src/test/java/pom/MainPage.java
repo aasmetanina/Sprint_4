@@ -5,12 +5,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class MainPage {
-
-    private final WebDriver driver;
+public class MainPage extends BasePage {
 
     public MainPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     //Вопросы
@@ -31,6 +29,20 @@ public class MainPage {
     //кнопка "Заказать" в "Как это работает" ()
     public WebElement buttonOrderBottom() {
         return driver.findElement(By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']"));
+    }
+
+    //клик на кнопку "Заказть" в шапке
+    public void clickOrderButtonTop() {
+        WebElement button = buttonOrderTop();
+        scrollTo(button);
+        button.click();
+    }
+
+    //клик на кнопку "Заказть" в вопросах
+    public void clickOrderButtonBottom() {
+        WebElement button = buttonOrderBottom();
+        scrollTo(button);
+        button.click();
     }
 
 }

@@ -1,16 +1,14 @@
 package pom;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class OrderPage {
-
-    private final WebDriver driver;
-
+public class OrderPage extends BasePage {
 
     public OrderPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     //поле Имя в Форме заказа
@@ -88,7 +86,54 @@ public class OrderPage {
 
     //попап об успешном заказе
     public WebElement successPopUp() {
-        return driver.findElement(By.className("Order_ModalHeader__3FDaJ"));
+        return driver.findElement(By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and text()='Заказ оформлен']"));
+    }
+
+    //ввод данных в форму
+    public void fillPersonDetailsForm(String nameText, String fullNameText, String addressText, String metroText, String phoneNumberText) {
+        WebElement name = name();
+        scrollTo(name);
+        name.sendKeys(nameText);
+        WebElement fullName = fullName();
+        fullName.sendKeys(fullNameText);
+        WebElement address = address();
+        address.sendKeys(addressText);
+        WebElement metro = metro();
+        metro.click();
+        WebElement metroOption = metroOption(metroText);
+        scrollTo(metroOption);
+        metroOption.click();
+        WebElement phoneNumber = phoneNumber();
+        phoneNumber.sendKeys(phoneNumberText);
+        WebElement buttonNext = buttonNext();
+        buttonNext.click();
+    }
+
+    public void fillRentDetailsForm(String pikUpTimeText, String timeToRentText, String colorText, String commentForCourierText) {
+        WebElement pikUpTime = pikUpTime();
+        pikUpTime.sendKeys(pikUpTimeText);
+        pikUpTime.sendKeys(Keys.ENTER);
+        WebElement timeToRent = timeToRentOptions();
+        waitUntilClickable(timeToRent);
+        timeToRent.click();
+        WebElement timeToRentOption = timeToRentOption(timeToRentText);
+        timeToRentOption.click();
+        WebElement color = color(colorText);
+        color.click();
+        WebElement commentForCourier = commentForCourier();
+        commentForCourier.sendKeys(commentForCourierText);
+        WebElement buttonFinishOrder = buttonFinishOrder();
+        buttonFinishOrder.click();
+    }
+
+    public void confirmOrder() {
+        WebElement buttonYes = buttonYes();
+        waitUntilClickable(buttonYes);
+        buttonYes.click();
+    }
+
+    public boolean orderSuccessful() {
+        return successPopUp().isDisplayed();
     }
 
 }

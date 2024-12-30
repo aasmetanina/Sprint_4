@@ -1,25 +1,14 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import pom.MainPage;
-import utils.WebUtils;
 
 @RunWith(Parameterized.class)
-public class FaqTest {
+public class FaqTest extends BaseScooterTest {
 
     private final String questionText;
     private final String answerText;
-
-    private WebDriver driver;
-    private MainPage mainPage;
-    private WebUtils webUtils;
 
     public FaqTest(String questionText, String answerText) {
         this.questionText = questionText;
@@ -41,26 +30,12 @@ public class FaqTest {
         };
     }
 
-    @Before
-    public void startUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.get("https://qa-scooter.praktikum-services.ru/");
-        mainPage = new MainPage(driver);
-        webUtils = new WebUtils(driver);
-    }
-
-    @After
-    public void tearDown() {
-        driver.quit();
-    }
-
     @Test
     public void checkTextIsDisplayedWhenArrowIsPressed() {
         WebElement question = mainPage.question(questionText);
         WebElement answer = mainPage.answer(answerText);
 
-        webUtils.scrollTo(question);
+        mainPage.scrollTo(question);
         question.click();
 
         Assert.assertTrue(answer.isDisplayed());
